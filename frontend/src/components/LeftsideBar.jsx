@@ -5,6 +5,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi";
 import { FaRegBookmark } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 
@@ -17,12 +18,12 @@ const Leftsidebar = () => {
           <img className='ml-1' width={"50px"}src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE.png" alt="twitter logo" />
         </div>
         <div className='my-4'>
-          <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <Link to={"/"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <MdHomeFilled size="24px"/>  
             </div>
             <h1 className='font-bold text-lg ml-2'>Home</h1>
-          </div>
+          </Link>
           <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <IoSearch size="24px"/>  
@@ -35,12 +36,12 @@ const Leftsidebar = () => {
             </div>
             <h1 className='text-lg ml-2'>Notifications</h1>
           </div>
-          <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <Link to={"/profile"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <HiOutlineUser size="24px"/>  
             </div>
             <h1 className='text-lg ml-2'>Profile</h1>
-          </div>
+          </Link>
           <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <FaRegBookmark size="19px"/>  
