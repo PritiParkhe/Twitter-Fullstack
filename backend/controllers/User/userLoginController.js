@@ -1,10 +1,11 @@
-import { User } from "../models/userSchema.js";
+import { User } from "../../models/userSchema.js";
 import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
 const secretKey = process.env.TOKEN_SECRET;
+
 
 const userLoginController = async (req, res) => {
   try {
