@@ -12,14 +12,10 @@ const Login = () => {
       <div className='flex items-center justify-evenly w-[80%]'>
         <div >
           <FaXTwitter size="350px" style={{ fontWeight: 'lighter' }}/>
-
-          {/* <img className='ml-1' width={"300"}  src="https://brandlogos.net/wp-content/uploads/2023/07/x__twitter-logo_brandlogos.net_fxbde-300x300.png" alt="twitter logo" /> */}
         </div>
         <div>
           <div className='my-5'>
-            <h1 className='font-bold text-6xl'>Happening now</h1>
- 
-            
+            <h1 className='font-bold text-6xl'>Happening now</h1>            
           </div>
           <label htmlFor="" className='mt-4 mb-4 text-2xl font-bold'>{isLogin? "Login" : "Signup"}</label>
           <form action="" className='flex flex-col w-[55%]'>
