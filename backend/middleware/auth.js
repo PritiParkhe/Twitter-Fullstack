@@ -1,33 +1,44 @@
 import jwt from 'jsonwebtoken';
-const secretKey = process.env.JWT_SECRET;
+import dotenv from 'dotenv';
 
-async function isAuthenticated(req, res, next){
+// Load environment variables from .env file
+dotenv.config({
+  path : "../.env"
+} 
+);
+
+const secretKey = process.env.TOKEN_SECRET;
+
+async function isAuthenticated(req, res, next) {
   try {
-    const token = req.cookies?.token 
-    if(!token){
-      return res.status(200).json({
-        message : "User not Login",
-        error : true,
-        success : false,
-      })
+    const token = req.cookies?.token;
+    if (!token) {
+      return res.status(401).json({
+        message: "User not logged in",
+        error: true,
+        success: false,
+      });
     }
-    jwt.verify(token, secretKey, function(error, decoded) {
-      console.log(error);
-      console.log( "decode",decoded) // bar
-      if(error){
-        console.log("error auth",error);
+
+    jwt.verify(token, secretKey, function (error, decoded) {
+      if (error) {
+        return res.status(401).json({
+          message: "Invalid token",
+          error: true,
+          success: false,
+        });
       }
-      req.userId = decoded?._id
-      next()
+
+      req.userId = decoded?._id;
+      next();
     });
   } catch (error) {
-    res.status(400).json({
-      message: error.message || error,
-      data: [],
-      error : true,
-      success : false,
-
-    })
+    return res.status(500).json({
+      message: error.message || "Internal Server Error",
+      error: true,
+      success: false,
+    });
   }
 }
-export default isAuthenticated
+
+export default isAuthenticated;
