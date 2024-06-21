@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import router from './routes/userRoute.js';
 
@@ -9,12 +10,15 @@ dotenv.config({
 });
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
+const FRONTEND_URL = process.env.FRONTEND_URL ;
 
-app.use(express.urlencoded({
-  extended: true
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
 }));
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -23,8 +27,10 @@ app.use("/api", router);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`server listening at ${PORT}`);
+    console.log(`Server listening at ${PORT}`);
   });
 }).catch(err => {
   console.error('Failed to connect to the database:', err);
 });
+
+export default app;

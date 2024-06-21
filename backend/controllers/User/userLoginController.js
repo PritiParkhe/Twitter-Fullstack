@@ -1,11 +1,10 @@
 import { User } from "../../models/userSchema.js";
 import bcryptjs from "bcryptjs";
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 dotenv.config();
 const secretKey = process.env.TOKEN_SECRET;
-
 
 const userLoginController = async (req, res) => {
   try {
@@ -17,7 +16,7 @@ const userLoginController = async (req, res) => {
         error: true,
       });
     }
-    
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(201).json({
@@ -26,20 +25,23 @@ const userLoginController = async (req, res) => {
         success: false,
       });
     }
-    
+
     const checkPassword = await bcryptjs.compare(password, user.password);
     if (checkPassword) {
       const tokenData = {
         _id: user._id,
         email: user.email,
       };
-      const token = await jwt.sign(tokenData, secretKey, { expiresIn: 60 * 60 * 10 });
+      const token = await jwt.sign(tokenData, secretKey, {
+        expiresIn: 60 * 60 * 10,
+      });
       const tokenOption = {
         httpOnly: true,
         secure: true,
       };
       return res.cookie("token", token, tokenOption).json({
         message: "Login Successfully",
+        user,
         data: token,
         success: true,
         error: false,
@@ -60,4 +62,4 @@ const userLoginController = async (req, res) => {
   }
 };
 
-export {userLoginController}
+export { userLoginController };
