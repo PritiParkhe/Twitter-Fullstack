@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter } from 'react-icons/fa6';
 import AllApiUrls from '../utils/constants';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -39,22 +39,22 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
         credentials: 'include',
-        
+        withCredentials: true
       });
-      dispatch(getUser(response?.data?.user))
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (response.ok) {
+        dispatch(getUser(data.user));
+        toast.success(data.message);
+        
+        if (isLogin) {
+          navigate('/');
+        } else {
+          setLogin(true);
+        }
+      } else {
         throw new Error(data.message || 'Something went wrong!');
-      }
-
-      toast.success(data.message);
-
-      if (!isLogin) {
-        setLogin(true);
-      }else{
-        navigate('/')
       }
     } catch (error) {
       toast.error(`Failed to ${isLogin ? 'login' : 'signup'}: ${error.message}`);
