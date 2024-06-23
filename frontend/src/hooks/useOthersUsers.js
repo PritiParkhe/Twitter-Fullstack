@@ -18,7 +18,6 @@ const useOtherUsers = (id) => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched data:", data.otherUsers); // Debugging output
           dispatch(getOtherUsers(data.otherUsers));
         } else {
           console.error("Failed to fetch other users' profiles");

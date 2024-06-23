@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import AllApiUrls from '../utils/constants';
-import { getMyProfile } from '../store/userSlice';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import AllApiUrls from "../utils/constants";
+import { getMyProfile } from "../store/userSlice";
 
 const useGetUserProfile = (id) => {
   const dispatch = useDispatch();
@@ -9,21 +9,21 @@ const useGetUserProfile = (id) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const url = AllApiUrls.getProfile.Url(id);  
+        const url = AllApiUrls.getProfile.Url(id);
         const response = await fetch(url, {
           method: AllApiUrls.getProfile.method,
-          credentials: 'include',
+          credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched data:', data); // Debugging: check fetched data
+
           dispatch(getMyProfile(data.user)); // Dispatch action to update profile in Redux store
         } else {
-          console.error('Failed to fetch user profile');
+          console.error("Failed to fetch user profile");
         }
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        console.error("Error fetching user profile:", error);
       }
     };
 

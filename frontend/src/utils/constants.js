@@ -37,6 +37,14 @@ const AllApiUrls = {
     Url: (id) => `${backendDomain}/api/following-tweets/${id}`,
     method: 'get'
   },
+  follow: {
+    Url: (id) => `${backendDomain}/api/follow/${id}`,
+    method: 'post'
+  },
+  unfollow: {
+    Url: (id) => `${backendDomain}/api/unfollow/${id}`,
+    method: 'post'
+  },
 };
 
 export default AllApiUrls;

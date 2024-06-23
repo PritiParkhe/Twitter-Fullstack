@@ -1,7 +1,7 @@
-import { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import AllApiUrls from '../utils/constants';
-import { getAllTweets } from '../store/tweetSlice';
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AllApiUrls from "../utils/constants";
+import { getAllTweets } from "../store/tweetSlice";
 import { toast } from "react-toastify";
 
 const useGetMyTweets = (id) => {
@@ -9,24 +9,23 @@ const useGetMyTweets = (id) => {
   const { refresh, isActive } = useSelector((store) => store.tweet);
 
   const fetchMyTweets = useCallback(async () => {
-    if (!id) return;  // Ensure ID is present
+    if (!id) return; // Ensure ID is present
 
     try {
-      const url = AllApiUrls.getMyTweets.Url(id);  // Ensure the correct usage of URL generation
+      const url = AllApiUrls.getMyTweets.Url(id); // Ensure the correct usage of URL generation
       const response = await fetch(url, {
         method: AllApiUrls.getMyTweets.method,
-        credentials: 'include',
+        credentials: "include",
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched data:', data); // Debugging: check fetched data
         dispatch(getAllTweets(data.tweets)); // Dispatch action to update tweets in Redux store
       } else {
-        console.error('Failed to fetch tweets');
+        console.error("Failed to fetch tweets");
       }
     } catch (error) {
-      console.error('Error fetching tweets:', error);
+      console.error("Error fetching tweets:", error);
     }
   }, [dispatch, id]);
 
@@ -35,20 +34,20 @@ const useGetMyTweets = (id) => {
       const response = await fetch(AllApiUrls.followingTweet.Url(id), {
         method: AllApiUrls.followingTweet.method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include'
+        credentials: "include",
       });
 
       const data = await response.json();
       if (response.ok) {
         dispatch(getAllTweets(data.tweets));
       } else {
-        console.error('Failed to fetch following tweets');
+        console.error("Failed to fetch following tweets");
       }
     } catch (error) {
       toast.error("Failed to get tweet");
-      console.log('get tweet error:', error); 
+      console.log("get tweet error:", error);
     }
   }, [dispatch, id]);
 
