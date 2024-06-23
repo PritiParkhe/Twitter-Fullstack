@@ -4,11 +4,12 @@ import RightsideBar from './RightsideBar'
 import { Outlet } from 'react-router-dom'
 import useOtherUsers from '../hooks/useOthersUsers'
 import { useSelector } from 'react-redux'
+import useGetMyTweets from '../hooks/useGetMyTweets'
 
 const Home = () => {
   const user = useSelector((state) => state.user.user); // Ensure this points to the correct user state
   useOtherUsers(user?._id); // Ensure you have a valid user ID before calling
-
+  useGetMyTweets(user?._id);
   const otherUsers = useSelector((state) => state.user.otherUsers); // Fetch other users from state
 
   return (

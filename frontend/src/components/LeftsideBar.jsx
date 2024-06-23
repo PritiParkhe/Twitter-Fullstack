@@ -6,11 +6,11 @@ import { HiOutlineUser } from "react-icons/hi";
 import { FaRegBookmark } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-
-
-
+import { useSelector } from 'react-redux'
 
 const Leftsidebar = () => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <div className='w-[20%]'>
       <div>
@@ -36,7 +36,7 @@ const Leftsidebar = () => {
             </div>
             <h1 className='text-lg ml-2'>Notifications</h1>
           </div>
-          <Link to={"/profile"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <Link to={`/profile/${user?._id}`} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <HiOutlineUser size="24px"/>  
             </div>

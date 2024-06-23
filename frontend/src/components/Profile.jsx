@@ -1,16 +1,15 @@
 import React from 'react';
 import bgImg from '../assets/bgImg.webp';
 import { IoMdArrowBack } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Avatar from 'react-avatar';
 import avatar from '../assets/aboutImage.jpg';
 import useGetUserProfile from '../hooks/useGetUserProfile';
 import { useSelector } from 'react-redux';
 
 const Profile = () => {
-  const user = useSelector((state) => state.user.user);
-  useGetUserProfile(user?._id);
-
+  const {id} = useParams();
+  useGetUserProfile(id);
   const profile = useSelector((state) => state.user.profile);
 
   if (!profile) {
@@ -21,7 +20,7 @@ const Profile = () => {
     <div className='w-[50%] border border-l border-r border-gray-200'>
       <div>
         <div className='flex items-center py-2'>
-          <Link to="/" className='p-2 rounded-full hover:bg-gray-100 cursor-pointer'>
+          <Link to={'/'} className='p-2 rounded-full hover:bg-gray-100 cursor-pointer'>
             <IoMdArrowBack size="24px" />
           </Link>
           <div className='ml-2'>

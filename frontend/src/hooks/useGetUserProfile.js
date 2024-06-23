@@ -9,17 +9,16 @@ const useGetUserProfile = (id) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const url = AllApiUrls.getProfile.Url(id);
+        const url = AllApiUrls.getProfile.Url(id);  
         const response = await fetch(url, {
           method: AllApiUrls.getProfile.method,
           credentials: 'include',
-          withCredentials: true,
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched data:', data); // Add a console log to debug the data
-          dispatch(getMyProfile(data.user)); // Ensure the response structure is correct
+          console.log('Fetched data:', data); // Debugging: check fetched data
+          dispatch(getMyProfile(data.user)); // Dispatch action to update profile in Redux store
         } else {
           console.error('Failed to fetch user profile');
         }
@@ -32,6 +31,8 @@ const useGetUserProfile = (id) => {
       fetchUserProfile();
     }
   }, [id, dispatch]);
+
+  // No return statement is needed for a custom hook
 };
 
 export default useGetUserProfile;

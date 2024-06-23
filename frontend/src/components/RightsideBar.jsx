@@ -2,8 +2,11 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 import Avatar from "react-avatar";
 import avatar from "../assets/aboutImage.jpg";
+import {Link} from 'react-router-dom'
+
 
 const RightsideBar = ({ otherUsers }) => {
+
   return (
     <div className="w-[25%]">
       <div className="flex items-center p-2 bg-gray-100 outline-none rounded-full w-full">
@@ -28,9 +31,11 @@ const RightsideBar = ({ otherUsers }) => {
                   <p className="text-sm">{`@${user.username}`}</p>
                 </div>
               </div>
-              <button className="px-4 py-1 mt-0 bg-black text-white rounded-full">
-                Profile
-              </button>
+              <Link to={`/profile/${user?._id}`}>
+                <button className="px-4 py-1 mt-0 bg-black text-white rounded-full">
+                  Profile
+                </button>
+              </Link>
             </div>
           );
         })}

@@ -47,14 +47,14 @@ const Login = () => {
       if (response.ok) {
         dispatch(getUser(data.user));
         toast.success(data.message);
-        
+
         if (isLogin) {
           navigate('/');
         } else {
-          setLogin(true);
+          setLogin(true); // Switch to login view after successful signup
         }
       } else {
-        throw new Error(data.message || 'Something went wrong!');
+        toast.error(data.message || 'Something went wrong!');
       }
     } catch (error) {
       toast.error(`Failed to ${isLogin ? 'login' : 'signup'}: ${error.message}`);
