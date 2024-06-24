@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import AllApiUrls from "../utils/constants";
 import { toast } from "react-toastify";
 import { followingUpdate } from "../store/userSlice";
+import { getRefresh } from '../store/tweetSlice';
+
 
 const Profile = () => {
   const { id } = useParams();
@@ -42,6 +44,7 @@ const Profile = () => {
       const data = await response.json();
       if (response.ok) {
         dispatch(followingUpdate(id));
+        dispatch(getRefresh())
         toast.success(data.message);
       } else {
         toast.error(data.message || "Failed to update follow status");

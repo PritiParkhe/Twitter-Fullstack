@@ -5,11 +5,41 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi";
 import { FaRegBookmark } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import AllApiUrls from '../utils/constants';
+import { toast } from 'react-toastify';
+import { getMyProfile, getOtherUsers, getUser } from '../store/userSlice';
+import {getAllTweets} from '../store/tweetSlice'
 
 const Leftsidebar = () => {
   const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
+  const logoutHandler = async() =>{
+    try {
+      const response  = await fetch(AllApiUrls.logout.Url,{
+        method: AllApiUrls.logout.method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const data = await response.json()
+      if (response.ok) {
+        toast.success(data.message);
+        dispatch(getUser(null));
+        dispatch(getOtherUsers(null));
+        dispatch(getMyProfile(null));
+        dispatch(getAllTweets(null));
+        navigate('/login');
+      }
+    } catch (error) {
+      toast.error(`Failed to logout`,error);
+      console.log(`Failed to logout`,error);
+      
+    }
+
+  }
 
   return (
     <div className='w-[20%]'>
@@ -48,7 +78,7 @@ const Leftsidebar = () => {
             </div>
             <h1 className='text-lg ml-2'>Bookmarks</h1>
           </div>
-          <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <div onClick={logoutHandler} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <IoLogOutOutline size="24px"/>  
             </div>

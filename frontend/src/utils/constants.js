@@ -45,6 +45,10 @@ const AllApiUrls = {
     Url: (id) => `${backendDomain}/api/unfollow/${id}`,
     method: 'post'
   },
+  logout:{
+    Url: `${backendDomain}/api/logout`,
+    method: 'get'
+  }
 };
 
 export default AllApiUrls;
