@@ -26,9 +26,18 @@ const userSchema = new mongoose.Schema({
     type : Array,
     default : []
   },
+  bio:{
+    type : String,
+    default : ""
+  },
   bookmarks:{
     type : Array,
     default : []
+  },
+  isFrozen:{
+    type : Boolean,
+    default : false
   }
 },{timestamps: true})
+
 export const User = mongoose.model("User",userSchema)
