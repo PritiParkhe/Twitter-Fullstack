@@ -8,6 +8,10 @@ const freezeAccount = async(req, res) => {
         message: "User not found",
       })
     }
+    user.isFrozen = true;
+		await user.save();
+		res.status(200).json({ success: true });
+
   } catch (error) {
     return res.status(500).json({
       message: error.message || "An error occurred",
