@@ -1,4 +1,4 @@
-import { Tweet } from "../../models/tweetSchema";
+import { Tweet } from "../../models/tweetSchema.js";
 
 const commentController= async(req,res )=>{
   try {
@@ -44,3 +44,4 @@ const commentController= async(req,res )=>{
     });
   }
 }
+export{commentController}

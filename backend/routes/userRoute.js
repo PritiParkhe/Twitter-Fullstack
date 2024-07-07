@@ -13,6 +13,9 @@ import { followController } from '../controllers/User/followController.js';
 import { unfollowController } from '../controllers/User/unfollowControllers.js';
 import { getAllTweetControllers } from '../controllers/Tweet/getAllTweets.js';
 import { getFollowingTweets } from '../controllers/Tweet/getFollowingTweets.js';
+import { UpdateUserController } from '../controllers/User/updateUser.js';
+import { freezeAccount } from '../controllers/User/freezeAccount.js';
+import { commentController } from '../controllers/Tweet/commentsController.js';
 
 const router = express.Router();
 
@@ -26,12 +29,17 @@ router.post('/follow/:id',isAuthenticated, followController );
 router.post('/unfollow/:id', isAuthenticated, unfollowController);
 router.get('/all-tweets/:id', isAuthenticated, getAllTweetControllers);
 router.get('/following-tweets/:id', isAuthenticated, getFollowingTweets)
+router.put("/update/:id", isAuthenticated, UpdateUserController);
+router.put("/freeze", isAuthenticated, freezeAccount);
+
+
 
 // tweet routes
 router.post('/create-tweet', isAuthenticated, createTweetController);
 router.delete('/delete-tweet/:id', isAuthenticated, deleteTweetController);
 router.put('/like/:id',isAuthenticated,likeOrDislikeTweetController );
 router.post('/bookmarks/:id', isAuthenticated, bookmarkController);
+router.post("/comment/:id", isAuthenticated, commentController);
 
 
 
