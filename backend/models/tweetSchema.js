@@ -45,9 +45,21 @@ const tweetSchema = new mongoose.Schema(
     },
     comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
-        default: [],
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: {
+          type: String,
+          required: true,
+        },
+        userProfilePic: {
+          type: String,
+        },
+        username: {
+          type: String,
+        },
       },
     ],
   },
