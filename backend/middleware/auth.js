@@ -1,17 +1,16 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 // Load environment variables from .env file
 dotenv.config({
-  path : "../.env"
-} 
-);
+  path: "../.env",
+});
 
 const secretKey = process.env.TOKEN_SECRET;
 
 async function isAuthenticated(req, res, next) {
   try {
-    const token = req.cookies?.token;
+    const token = req.cookies?.token; // Assuming you're using cookies to store the token
     if (!token) {
       return res.status(401).json({
         message: "User not logged in",
@@ -29,7 +28,7 @@ async function isAuthenticated(req, res, next) {
         });
       }
 
-      req.userId = decoded?._id;
+      req.userId = decoded?._id; // Assuming your token payload has _id field for user ID
       next();
     });
   } catch (error) {
