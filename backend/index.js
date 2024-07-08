@@ -5,6 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import router from './routes/userRoute.js';
 
+import storyRoutes from './routes/storyRoutes.js'
 dotenv.config({
   path: ".env"
 });
@@ -24,6 +25,7 @@ app.use(cookieParser());
 
 // API routes
 app.use("/api", router);
+app.use("/api",storyRoutes)
 
 connectDB().then(() => {
   app.listen(PORT, () => {

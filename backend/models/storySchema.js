@@ -1,27 +1,23 @@
-import mongoose from "mongoose";
-const storySchema = new mongoose.Schema({
+import mongoose from 'mongoose';
 
+const storySchema = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
-
   media_url: {
     type: String,
     required: true,
   },
-
   created_at: {
     type: Date,
     default: Date.now,
   },
-
   expires_at: {
     type: Date,
     required: true,
   },
-
   views_count: {
     type: Number,
     default: 0,
@@ -30,7 +26,7 @@ const storySchema = new mongoose.Schema({
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
       liked_at: {
         type: Date,
@@ -42,14 +38,12 @@ const storySchema = new mongoose.Schema({
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
-
       reaction_type: {
         type: String,
         required: true,
       },
-
       reacted_at: {
         type: Date,
         default: Date.now,
@@ -58,4 +52,6 @@ const storySchema = new mongoose.Schema({
   ],
 });
 
-export const Story = mongoose.model("Story", storySchemaSchema);
+const Story = mongoose.model('Story', storySchema);
+
+export { Story };
