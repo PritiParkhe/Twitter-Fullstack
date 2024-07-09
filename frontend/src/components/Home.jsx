@@ -12,15 +12,15 @@ const Home = () => {
   useGetMyTweets(user?._id);
   const otherUsers = useSelector((state) => state.user.otherUsers); // Fetch other users from state
   const navigate = useNavigate();
-  useEffect(()=>{
-    if(!user){
+
+  useEffect(() => {
+    if (!user) {
       navigate('/login')
     }
+  }, [user, navigate]);
 
-  },[])
-  
   return (
-    <div className='flex justify-between w-[80%] mx-auto mt-1'>
+    <div className='flex flex-col md:flex-row justify-between md:w-[70%] mx-auto mt-1'>
       <LeftsideBar />
       <Outlet />
       <RightsideBar otherUsers={otherUsers}/>

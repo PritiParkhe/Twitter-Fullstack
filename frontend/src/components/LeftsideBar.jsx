@@ -16,6 +16,7 @@ const Leftsidebar = () => {
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate(); 
   const dispatch = useDispatch();
+
   const logoutHandler = async() =>{
     try {
       const response  = await fetch(AllApiUrls.logout.Url,{
@@ -36,16 +37,14 @@ const Leftsidebar = () => {
     } catch (error) {
       toast.error(`Failed to logout`,error);
       console.log(`Failed to logout`,error);
-      
     }
-
   }
   
   return (
     <div className='w-[20%]'>
-      <div>
+      <div className="hidden md:block">
         <div>
-          <img className='ml-1' width={"50px"}src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE.png" alt="twitter logo" />
+          <img className='ml-1' width={"50px"} src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE.png" alt="twitter logo" />
         </div>
         <div className='my-4'>
           <Link to={"/"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
@@ -86,10 +85,23 @@ const Leftsidebar = () => {
           </div>
           <button className='bg-[#1D9BF0] px-4 py-2 border-none text-md w-full rounded-full text-white font-bold '>Post</button>
         </div>
-        
+      </div>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2">
+        <Link to={"/"}>
+          <MdHomeFilled size="24px"/>  
+        </Link>
+        <Link to={"/story"}>
+          <IoSearch size="24px"/>  
+        </Link>
+        <Link to={`/profile/${user?._id}`}>
+          <HiOutlineUser size="24px"/>  
+        </Link>
+        <button onClick={logoutHandler}>
+          <IoLogOutOutline size="24px"/>  
+        </button>
       </div>
     </div>
   )
 }
 
-export default Leftsidebar
+export default Leftsidebar;
