@@ -40,7 +40,7 @@ const Leftsidebar = () => {
     }
 
   }
-
+  
   return (
     <div className='w-[20%]'>
       <div>
@@ -54,12 +54,12 @@ const Leftsidebar = () => {
             </div>
             <h1 className='font-bold text-lg ml-2'>Home</h1>
           </Link>
-          <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <Link to={"/story"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <IoSearch size="24px"/>  
             </div>
             <h1 className='text-lg ml-2'>Explore</h1>
-          </div>
+          </Link>
           <div className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <IoNotificationsOutline size="24px"/>  
