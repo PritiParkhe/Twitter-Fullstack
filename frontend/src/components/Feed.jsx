@@ -17,11 +17,11 @@ const Feed = () => {
   };
 
   return (
-    <div className='w-[50%] border border-gray-200'>
+    <div className='w-[100%] border border-gray-200 lg:w-[50%]'>
       <div>
         <StoryList openStoryModal={openStoryModal} closeStoryModal={closeStoryModal} />
         {!isStoryModalOpen && (
-          <div className="h-[calc(100vh-130px)] overflow-y-auto scrollbar-hide">
+          <div className="h-[calc(100vh-160px)] lg:h-[calc(100vh-130px)] overflow-y-auto scrollbar-hide">
             <CreatePosts />
             {tweets?.map((tweet) => (
               <Tweet key={tweet?._id} tweet={tweet} />

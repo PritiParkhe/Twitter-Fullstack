@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import Avatar from "react-avatar";
 import avatar from "../assets/aboutImage.jpg";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { useSelector } from "react-redux";
+import useOtherUsers from "../hooks/useOthersUsers";
 
 
-const RightsideBar = ({ otherUsers }) => {
+const MobileRightsideBar = () => {
+  const user = useSelector((state) => state.user.user); // Ensure this points to the correct user state
+  useOtherUsers(user?._id); // Ensure you have a valid user ID before calling
+ 
+  const otherUsers = useSelector((state) => state.user.otherUsers); // Fetch other users from state
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }  }, [user, navigate]);
 
   return (
-    <div className="hidden lg:block lg:w-[25%] ">
+    <div className="w-[100%]">
       <div className="flex items-center p-2 bg-gray-100 outline-none rounded-full w-full">
         <CiSearch size={"20px"} />
         <input
@@ -44,4 +56,4 @@ const RightsideBar = ({ otherUsers }) => {
   );
 };
 
-export default RightsideBar;
+export default MobileRightsideBar;

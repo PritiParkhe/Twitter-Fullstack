@@ -4,6 +4,7 @@ import Home from './Home'
 import Login from './Login'
 import Feed from './Feed'
 import Profile from './Profile'
+import MobileRightsideBar from './MobileRightsidebar'
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -15,13 +16,17 @@ const Body = () => {
           path : "/",
           element : <Feed/>
 
-
         },
         {
           path : "/profile/:id",
           element : <Profile/>
-        }
+        },
+        
       ]
+    },
+    {
+      path : "/search",
+      element : <MobileRightsideBar/>
     },
     {
       path : "/login",

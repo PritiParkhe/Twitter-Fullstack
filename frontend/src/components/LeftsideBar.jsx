@@ -53,7 +53,7 @@ const Leftsidebar = () => {
             </div>
             <h1 className='font-bold text-lg ml-2'>Home</h1>
           </Link>
-          <Link to={"/story"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+          <Link to={"/"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <IoSearch size="24px"/>  
             </div>
@@ -90,7 +90,7 @@ const Leftsidebar = () => {
         <Link to={"/"}>
           <MdHomeFilled size="24px"/>  
         </Link>
-        <Link to={"/story"}>
+        <Link to={"/search"}>
           <IoSearch size="24px"/>  
         </Link>
         <Link to={`/profile/${user?._id}`}>
