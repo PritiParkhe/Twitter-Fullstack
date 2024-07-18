@@ -7,14 +7,14 @@ const deleteStoryController = async (req, res) => {
     const deletedStory = await Story.findByIdAndDelete(storyId);
     if (!deletedStory) {
       return res.status(404).json({
-        message: 'Story not found',
+        message: "Story not found",
         error: true,
         success: false,
       });
     }
 
     res.status(200).json({
-      message: 'Story deleted successfully',
+      message: "Story deleted successfully",
       success: true,
       error: false,
     });
@@ -26,4 +26,4 @@ const deleteStoryController = async (req, res) => {
     });
   }
 };
-export{deleteStoryController}
+export { deleteStoryController };

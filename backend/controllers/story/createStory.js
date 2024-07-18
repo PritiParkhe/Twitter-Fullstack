@@ -9,17 +9,21 @@ const createStoryController = async (req, res) => {
     const userExists = await User.findById(userId);
     if (!userExists) {
       return res.status(404).json({
-        message: 'User not found',
+        message: "User not found",
         error: true,
         success: false,
       });
     }
 
+    // Calculate expiration time (24 hours from now)
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 24);
+
     // Create new Story object
     const newStory = new Story({
       user_id: userId,
-      media_url: req.file.path, // Assuming you're using multer or similar for file uploads
-      expires_at: req.body.expires_at,
+      media_url: req.file.path,
+      expires_at: expiresAt,
     });
 
     // Save the new Story
@@ -28,18 +32,18 @@ const createStoryController = async (req, res) => {
     // Respond with success message and saved Story
     res.status(201).json({
       story: savedStory,
-      message: 'Story created successfully',
+      message: "Story created successfully",
       success: true,
       error: false,
     });
   } catch (error) {
     // Handle any errors
-    console.error('Error creating story:', error);
+    console.error("Error creating story:", error);
     res.status(500).json({
-      message: error.message || 'Internal Server Error',
+      message: error.message || "Internal Server Error",
       error: true,
       success: false,
     });
   }
 };
-export{createStoryController}
+export { createStoryController };

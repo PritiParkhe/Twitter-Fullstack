@@ -16,8 +16,8 @@ router.post(
   createStoryController
 );
 router.get("/allstories", isAuthenticated, getAllStoriesController);
-router.get("/stories/:id", getStoryByIdController);
-router.delete("/delete-story/:id", deleteStoryController);
-router.patch("/views-stories/:id", incrementViewsController);
-router.post("/likes-stories/:id", addLikeController);
+router.get("/stories/:id", isAuthenticated, getStoryByIdController);
+router.delete("/delete-story/:id", isAuthenticated, deleteStoryController);
+router.patch("/views-stories/:id",isAuthenticated, incrementViewsController);
+router.post("/likes-stories/:id",isAuthenticated, addLikeController);
 export default router;

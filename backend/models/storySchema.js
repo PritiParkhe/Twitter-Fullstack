@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const storySchema = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   media_url: {
@@ -19,14 +19,14 @@ const storySchema = new mongoose.Schema({
     required: true,
   },
   views_count: {
-    type: Number,
-    default: 0,
+    type: Array,
+    default: [],
   },
   likes: [
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User",
       },
       liked_at: {
         type: Date,
@@ -38,7 +38,7 @@ const storySchema = new mongoose.Schema({
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User",
       },
       reaction_type: {
         type: String,
@@ -52,6 +52,6 @@ const storySchema = new mongoose.Schema({
   ],
 });
 
-const Story = mongoose.model('Story', storySchema);
+const Story = mongoose.model("Story", storySchema);
 
 export { Story };
