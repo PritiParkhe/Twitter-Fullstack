@@ -1,54 +1,78 @@
-const backendDomain = 'http://localhost:8000';
+const backendDomain = "http://localhost:8000";
 
 const AllApiUrls = {
   signUp: {
     Url: `${backendDomain}/api/signup`,
-    method: 'post'
+    method: "post",
   },
   login: {
     Url: `${backendDomain}/api/login`,
-    method: 'post'
+    method: "post",
   },
   getProfile: {
     Url: (id) => `${backendDomain}/api/profile/${id}`,
-    method: 'get'
+    method: "get",
   },
   getOtherUsersProfile: {
     Url: (id) => `${backendDomain}/api/others-profile/${id}`,
-    method: 'get'
+    method: "get",
   },
   getMyTweets: {
     Url: (id) => `${backendDomain}/api/all-tweets/${id}`,
-    method: 'get'
+    method: "get",
   },
   createPosts: {
-    Url : `${backendDomain}/api/create-tweet`,
-    method: 'post'
+    Url: `${backendDomain}/api/create-tweet`,
+    method: "post",
   },
   likeOrDislike: {
     Url: (id) => `${backendDomain}/api/like/${id}`,
-    method: 'put'
+    method: "put",
   },
   deleteTweet: {
     Url: (id) => `${backendDomain}/api/delete-tweet/${id}`,
-    method: 'delete'
+    method: "delete",
   },
   followingTweet: {
     Url: (id) => `${backendDomain}/api/following-tweets/${id}`,
-    method: 'get'
+    method: "get",
   },
   follow: {
     Url: (id) => `${backendDomain}/api/follow/${id}`,
-    method: 'post'
+    method: "post",
   },
   unfollow: {
     Url: (id) => `${backendDomain}/api/unfollow/${id}`,
-    method: 'post'
+    method: "post",
   },
-  logout:{
+  logout: {
     Url: `${backendDomain}/api/logout`,
-    method: 'get'
-  }
+    method: "get",
+  },
+  getAllStories: {
+    Url: `${backendDomain}/api/allstories`,
+    method: "GET",
+  },
+  createStory: {
+    Url: `${backendDomain}/api/createstory`,
+    method: "POST",
+  },
+  myStory: {
+    Url: `${backendDomain}/api/mystory`,
+    method: "get",
+  },
+  likeStory: {
+    Url: (storyId) => `${backendDomain}/api/likes-stories/${storyId}`,
+    method: "POST",
+  },
+  deleteStory: {
+    Url: (storyId) => `${backendDomain}/api//delete-story/${storyId}`,
+    method: "DELETE",
+  },
+  viewsStory: {
+    Url: (storyId) => `${backendDomain}/api//views-stories/${storyId}`,
+    method: "PATCH",
+  },
 };
 
 export default AllApiUrls;

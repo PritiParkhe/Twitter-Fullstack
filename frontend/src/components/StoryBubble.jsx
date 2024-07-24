@@ -1,11 +1,10 @@
-// StoryBubble.js
 import React from 'react';
 
-const StoryBubble = ({ imgSrc, username, isCurrentUser, onClick, onAddStoryClick }) => {
+const StoryBubble = ({ imgSrc, username, isCurrentUser, onClick, onAddStoryClick, hasStories }) => {
   return (
-    <div className="flex-none" onClick={isCurrentUser ? onAddStoryClick : onClick}>
-      <div className="w-16 h-16 rounded-full border-4 border-blue-500 overflow-hidden cursor-pointer relative">
-        {isCurrentUser && (
+    <div className="flex-none" onClick={isCurrentUser && !hasStories ? onAddStoryClick : onClick}>
+      <div className="w-16 h-16 rounded-full border-2 border-blue-500 overflow-hidden cursor-pointer relative">
+        {isCurrentUser && !hasStories && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-50">
             <span className="text-2xl font-bold text-blue-500">+</span>
           </div>

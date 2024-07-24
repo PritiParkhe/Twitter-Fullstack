@@ -1,12 +1,21 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userSlice from './userSlice';
-import tweetSlice from './tweetSlice';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+import userSlice from "./userSlice";
+import tweetSlice from "./tweetSlice";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist/es/constants";
+import storySlice from "./storySlice";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage,
 };
@@ -14,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice, // Assuming userSlice is the reducer function from userSlice.js
   tweet: tweetSlice, // Assuming tweetSlice is the reducer function from tweetSlice.js
+  story: storySlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
