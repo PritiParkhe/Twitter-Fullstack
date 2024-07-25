@@ -23,3 +23,45 @@ code {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Container for the image */
+.relative {
+  position: relative;
+}
+
+.bg-gray-200 {
+  background-color: #f7f7f7; /* Light gray background */
+}
+
+.overflow-hidden {
+  overflow: hidden; /* Hide overflow to prevent image from exceeding container */
+}
+
+.rounded-lg {
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+/* Ensure image maintains aspect ratio and fits within container */
+.story-image {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) { /* Small screens and up (mobile) */
+  .max-w-2xl {
+    max-width: 42rem; /* 672px for tablets and mobile */
+  }
+}
+
+@media (min-width: 768px) { /* Medium screens and up (laptop) */
+  .max-w-2xl {
+    max-width: 42rem; /* 1024px for larger screens */
+  }
+}
+@media (min-width: 1024px ) { /* Medium screens and up (laptop) */
+  .max-w-xl {
+    max-width:20rem; /* for larger screens */
+  }
+}

@@ -38,6 +38,9 @@ const storySlice = createSlice({
     createStorySuccess: (state, action) => {
       state.stories.push(action.payload);
     },
+    getRefresh:(state)=>{
+      state.refresh = !state.refresh;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -52,6 +55,7 @@ export const {
   incrementLikeSuccess,
   deleteStorySuccess,
   createStorySuccess,
+  getRefresh,
   setError,
 } = storySlice.actions;
 

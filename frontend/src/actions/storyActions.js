@@ -1,17 +1,15 @@
 import AllApiUrls from '../utils/constants.js';
 import {
   getAllStoriesSuccess,
-  getMyStoriesSuccess, // Add this import
+  getMyStoriesSuccess,
   incrementViewSuccess,
   incrementLikeSuccess,
   deleteStorySuccess,
   createStorySuccess,
   setError,
 } from '../store/storySlice.js';
+import { toast } from 'react-toastify';
 
-// actions/storyActions.js
-
-// actions/storyActions.js
 export const fetchAllStories = () => async (dispatch) => {
   try {
     const response = await fetch(AllApiUrls.getAllStories.Url, {
@@ -21,16 +19,17 @@ export const fetchAllStories = () => async (dispatch) => {
     const data = await response.json();
     if (response.ok) {
       dispatch(getAllStoriesSuccess(data.stories));
+
     } else {
       dispatch(setError(data.message));
+     
     }
   } catch (error) {
     dispatch(setError(error.message));
+    toast.error(error.message);
   }
 };
 
-// Fetch stories for the current user
-// actions/storyActions.js
 export const fetchMyStories = () => async (dispatch) => {
   try {
     const response = await fetch(AllApiUrls.myStory.Url, {
@@ -42,12 +41,13 @@ export const fetchMyStories = () => async (dispatch) => {
       dispatch(getMyStoriesSuccess(data.stories));
     } else {
       dispatch(setError(data.message));
+      toast.error(data.message);
     }
   } catch (error) {
     dispatch(setError(error.message));
+    toast.error(error.message);
   }
 };
-
 
 export const createStory = (formData) => async (dispatch) => {
   try {
@@ -59,11 +59,14 @@ export const createStory = (formData) => async (dispatch) => {
     const data = await response.json();
     if (response.ok) {
       dispatch(createStorySuccess(data.story));
+      toast.success("Story created successfully!");
     } else {
       dispatch(setError(data.message));
+      toast.error(data.message);
     }
   } catch (error) {
     dispatch(setError(error.message));
+    toast.error(error.message);
   }
 };
 
@@ -72,15 +75,22 @@ export const likeStory = (storyId, userId) => async (dispatch) => {
     const response = await fetch(AllApiUrls.likeStory.Url(storyId), {
       method: AllApiUrls.likeStory.method,
       credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
     });
     const data = await response.json();
     if (response.ok) {
       dispatch(incrementLikeSuccess({ storyId, userId }));
+      toast.success("Story liked successfully!");
     } else {
       dispatch(setError(data.message));
+      toast.error(data.message);
     }
   } catch (error) {
     dispatch(setError(error.message));
+    toast.error(error.message);
   }
 };
 
@@ -93,28 +103,30 @@ export const deleteStory = (storyId) => async (dispatch) => {
     const data = await response.json();
     if (response.ok) {
       dispatch(deleteStorySuccess(storyId));
+      toast.success("Story deleted successfully!");
     } else {
       dispatch(setError(data.message));
+      toast.error(data.message);
     }
   } catch (error) {
     dispatch(setError(error.message));
+    toast.error(error.message);
   }
 };
 
 export const incrementView = (storyId, userId) => async (dispatch) => {
-  try {
+  
     const response = await fetch(AllApiUrls.viewsStory.Url(storyId), {
       method: AllApiUrls.viewsStory.method,
-      credentials: 'include',
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ userId }),
     });
     const data = await response.json();
     if (response.ok) {
       dispatch(incrementViewSuccess(storyId));
-    } else {
-      dispatch(setError(data.message));
-    }
-  } catch (error) {
-    dispatch(setError(error.message));
-  }
+    } 
+  
 };

@@ -3,7 +3,7 @@ import { Story } from "../../models/storySchema.js";
 const addLikeController = async (req, res) => {
   try {
     const storyId = req.params.id;
-    const userId = req.userId;
+    const userId = req.body.userId;
     // Validate userId
     if (!userId) {
       return res.status(400).json({
