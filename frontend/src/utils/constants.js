@@ -63,15 +63,23 @@ const AllApiUrls = {
   },
   likeStory: {
     Url: (storyId) => `${backendDomain}/api/likes-stories/${storyId}`,
-    method: "POST",
+    method: "post",
   },
   deleteStory: {
     Url: (storyId) => `${backendDomain}/api//delete-story/${storyId}`,
-    method: "DELETE",
+    method: "delete",
   },
   viewsStory: {
-    Url: (storyId) => `${backendDomain}/api//views-stories/${storyId}`,
-    method: "PATCH",
+    Url: (storyId) => `${backendDomain}/api/views-stories/${storyId}`,
+    method: "patch",
+  },
+  comment : {
+    Url: (tweetId) => `${backendDomain}/api/comment/${tweetId}`,
+    method: "post",
+  },
+  commentList: {
+    Url: (tweetId) => `${backendDomain}/api/commentsList/${tweetId}`,
+    method: 'GET',
   },
 };
 

@@ -5,6 +5,7 @@ const UpdateUserController = async(req,res) => {
   try {
     const { name, email, username, password, bio } = req.body;
     const { profilePic } = req.body;
+    const { bgImg } = req.body;
 
     const userId = req.user.id;
     
@@ -33,6 +34,7 @@ const UpdateUserController = async(req,res) => {
 		user.email = email || user.email;
 		user.username = username || user.username;
 		user.profilePic = profilePic || user.profilePic;
+    user.bgImg = bgImg || user.bgImg;
 		user.bio = bio || user.bio;
 
     user = await user.save();

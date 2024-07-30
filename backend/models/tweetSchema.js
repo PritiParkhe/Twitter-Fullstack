@@ -1,4 +1,21 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+//Define the comment schema
+const commentSchema = new mongoose.Schema(
+  {
+    decription: {
+      type: String,
+      default: "",
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 // Define the Tweet schema
 const tweetSchema = new mongoose.Schema(
@@ -10,6 +27,7 @@ const tweetSchema = new mongoose.Schema(
     },
     img: {
       type: String,
+      default: "",
     },
     like: {
       type: [mongoose.Schema.Types.ObjectId],
@@ -25,25 +43,7 @@ const tweetSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    comments: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          required: true,
-        },
-        text: {
-          type: String,
-          required: true,
-        },
-        userProfilePic: {
-          type: String,
-        },
-        username: {
-          type: String,
-        },
-      },
-    ],
+    comments: [commentSchema],
   },
   { timestamps: true }
 );
