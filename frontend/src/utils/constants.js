@@ -66,7 +66,7 @@ const AllApiUrls = {
     method: "post",
   },
   deleteStory: {
-    Url: (storyId) => `${backendDomain}/api//delete-story/${storyId}`,
+    Url: (storyId) => `${backendDomain}/api/delete-story/${storyId}`,
     method: "delete",
   },
   viewsStory: {

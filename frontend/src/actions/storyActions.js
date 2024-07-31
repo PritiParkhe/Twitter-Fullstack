@@ -115,18 +115,23 @@ export const deleteStory = (storyId) => async (dispatch) => {
 };
 
 export const incrementView = (storyId, userId) => async (dispatch) => {
-  
+  try {
     const response = await fetch(AllApiUrls.viewsStory.Url(storyId), {
-      method: AllApiUrls.viewsStory.method,
-      credentials: "include",
+      method: 'PATCH',
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ userId }),
     });
+
     const data = await response.json();
     if (response.ok) {
       dispatch(incrementViewSuccess(storyId));
-    } 
-  
+    } else {
+      console.error(data.message); // Handle the error message
+    }
+  } catch (error) {
+    console.error('Failed to fetch:', error);
+  }
 };

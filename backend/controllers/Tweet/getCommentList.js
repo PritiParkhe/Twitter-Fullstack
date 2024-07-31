@@ -4,7 +4,7 @@ const getCommentListController = async (req, res) => {
   try {
     const userId = req.userId;
     const tweetId = req.params._id; // Corrected to extract tweetId properly
-    console.log(tweetId, "teeetId");
+    // console.log(tweetId, "teeetId");
 
     // Validate the userId
     if (!userId) {
