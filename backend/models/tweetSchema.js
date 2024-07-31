@@ -1,13 +1,17 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 //Define the comment schema
 const commentSchema = new mongoose.Schema(
   {
-    decription: {
+    description: {
       type: String,
       default: "",
     },
+    profilePic: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     userId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },

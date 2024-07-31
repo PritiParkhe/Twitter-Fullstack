@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "react-avatar";
-import avatar from "../assets/aboutImage.jpg";
+import avatar from "../assets/aboutImage.jpg"; // Default avatar image
 import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -15,6 +15,41 @@ const Tweet = ({ tweet }) => {
   const [comment, setComment] = useState("");
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (openComment) {
+      fetchCommentData(tweet._id);
+    }
+  }, [openComment]);
+
+  const fetchCommentData = async (tweetId) => {
+    try {
+      const response = await fetch(AllApiUrls.commentList.Url(tweetId), {
+        method: AllApiUrls.commentList.method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      // Check if the response is OK (status code 2xx)
+      if (!response.ok) {
+        // Log the status and the response text for debugging
+        console.log("Response status:", response.status);
+        const errorText = await response.text(); // Get the response text
+        console.log("Response text:", errorText);
+        toast.error(`Failed to fetch comments: ${response.statusText}`);
+        return;
+      }
+
+      // Parse the response as JSON
+      const data = await response.json();
+      setCommentData(data.data);
+    } catch (error) {
+      toast.error("Failed to fetch comments");
+      console.log("fetch comments error:", error);
+    }
+  };
 
   const handleOpenCloseComment = () => {
     setOpenComment((prev) => !prev);
@@ -57,6 +92,8 @@ const Tweet = ({ tweet }) => {
       if (response.ok) {
         dispatch(getRefresh());
         toast.success(data.message);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Failed to delete tweet");
@@ -72,16 +109,22 @@ const Tweet = ({ tweet }) => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ userId: user._id, description: comment }), // Include userId here
+        body: JSON.stringify({ userId: user._id, description: comment }),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         dispatch(getRefresh());
         toast.success(data.message);
         setCommentData([
           ...commentData,
-          { userId: user._id, description: comment },
+          {
+            userId: {
+              _id: user._id,
+              username: user.username,
+              profilePic: user.profilePic,
+            },
+            description: comment,
+          },
         ]);
         setComment(""); // Clear the input field after adding the comment
       } else {
@@ -188,7 +231,7 @@ const Tweet = ({ tweet }) => {
                   <p className="font-semibold text-sm">
                     {comment.userId?.username}
                   </p>
-                  <p className="text-sm py-1 px-2 bg-white  ">
+                  <p className="text-sm py-1 px-2 bg-white">
                     {comment.description}
                   </p>
                 </div>

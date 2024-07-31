@@ -73,13 +73,13 @@ const AllApiUrls = {
     Url: (storyId) => `${backendDomain}/api/views-stories/${storyId}`,
     method: "patch",
   },
-  comment : {
+  comment: {
     Url: (tweetId) => `${backendDomain}/api/comment/${tweetId}`,
     method: "post",
   },
   commentList: {
-    Url: (tweetId) => `${backendDomain}/api/commentsList/${tweetId}`,
-    method: 'GET',
+    Url: (tweetId) => `${backendDomain}/api/commentList/${tweetId}`,
+    method: "get",
   },
 };
 

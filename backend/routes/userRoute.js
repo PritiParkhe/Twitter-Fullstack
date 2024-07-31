@@ -16,6 +16,7 @@ import { getFollowingTweets } from "../controllers/Tweet/getFollowingTweets.js";
 import { UpdateUserController } from "../controllers/User/updateUser.js";
 import { freezeAccount } from "../controllers/User/freezeAccount.js";
 import { commentController } from "../controllers/Tweet/commentsController.js";
+import { getCommentListController } from "../controllers/Tweet/getCommentList.js";
 
 const router = express.Router();
 
@@ -42,5 +43,6 @@ router.delete("/delete-tweet/:id", isAuthenticated, deleteTweetController);
 router.put("/like/:id", isAuthenticated, likeOrDislikeTweetController);
 router.post("/bookmarks/:id", isAuthenticated, bookmarkController);
 router.post("/comment/:_id", isAuthenticated, commentController);
+router.get("/commentList/:_id", isAuthenticated, getCommentListController);
 
 export default router;

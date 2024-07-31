@@ -3,10 +3,8 @@ import { Tweet } from "../../models/tweetSchema.js";
 const commentController = async (req, res) => {
   try {
     const userId = req.userId;
-    const { description } = req.body;
+    const { description } = req.body;  // This should match the key in the request body
     const tweetId = req.params._id;
-
-    // console.log(`Received tweetId: ${tweetId}`); // Debugging log
 
     if (!description) {
       return res.status(400).json({
@@ -18,7 +16,7 @@ const commentController = async (req, res) => {
 
     const tweet = await Tweet.findById(tweetId).populate({
       path: "comments.userId",
-      select: "username profilePic", // Include desired user fields
+      select: "username profilePic",
     });
 
     if (!tweet) {
@@ -29,18 +27,18 @@ const commentController = async (req, res) => {
       });
     }
 
-    const comment = { userId, description };
+    const comment = { userId, description };  // Ensure 'description' is used here
 
-    tweet.comments.push(comment);
-    await tweet.save();
+    tweet.comments.push(comment);  // Push the comment to the tweet's comments array
+    await tweet.save();  // Save the updated tweet
 
     // Populate the user details for the comments
     const updatedTweet = await Tweet.findById(tweetId)
       .populate({
         path: "comments.userId",
-        select: "username profilePic", // Include desired user fields
+        select: "username , profilePic",
       })
-      .select("comments"); // Only select the comments field
+      .select("comments");
 
     res.status(200).json({
       comment,
