@@ -11,6 +11,8 @@ import AllApiUrls from '../utils/constants';
 import { toast } from 'react-toastify';
 import { getMyProfile, getOtherUsers, getUser } from '../store/userSlice';
 import {getAllTweets} from '../store/tweetSlice'
+import { BiMessageRoundedDetail } from "react-icons/bi";
+
 
 const Leftsidebar = () => {
   const user = useSelector((state) => state.user.user);
@@ -65,6 +67,12 @@ const Leftsidebar = () => {
             </div>
             <h1 className='text-lg ml-2'>Notifications</h1>
           </div>
+          <Link to={"/messages"} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
+            <div >
+              <BiMessageRoundedDetail size="24px"/>  
+            </div>
+            <h1 className='text-lg ml-2'>Messenger</h1>
+          </Link>
           <Link to={`/profile/${user?._id}`} className='flex items-center my-2 hover:bg-gray-200 hover:cursor-pointer px-4 py-2 rounded-full'>
             <div >
               <HiOutlineUser size="24px"/>  
@@ -95,6 +103,9 @@ const Leftsidebar = () => {
         </Link>
         <Link to={`/profile/${user?._id}`}>
           <HiOutlineUser size="24px"/>  
+        </Link>
+        <Link to={"/messages"}>
+          <BiMessageRoundedDetail size="24px"/>  
         </Link>
         <button onClick={logoutHandler}>
           <IoLogOutOutline size="24px"/>  

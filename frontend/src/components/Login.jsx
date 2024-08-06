@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { FaXTwitter } from 'react-icons/fa6';
-import AllApiUrls from '../utils/constants';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getUser } from '../store/userSlice';
+import React, { useState } from "react";
+import { FaXTwitter } from "react-icons/fa6";
+import AllApiUrls from "../utils/constants";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUser } from "../store/userSlice";
 
 const Login = () => {
   const [isLogin, setLogin] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
-    username: '',
-    email: '',
-    password: ''
+    name: "",
+    username: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -35,11 +35,11 @@ const Login = () => {
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-        credentials: 'include',
-        withCredentials: true
+        credentials: "include",
+        withCredentials: true,
       });
 
       const data = await response.json();
@@ -49,16 +49,18 @@ const Login = () => {
         toast.success(data.message);
 
         if (isLogin) {
-          navigate('/');
+          navigate("/");
         } else {
           setLogin(true); // Switch to login view after successful signup
         }
       } else {
-        toast.error(data.message || 'Something went wrong!');
+        toast.error(data.message || "Something went wrong!");
       }
     } catch (error) {
-      toast.error(`Failed to ${isLogin ? 'login' : 'signup'}: ${error.message}`);
-      console.error('Error:', error);
+      toast.error(
+        `Failed to ${isLogin ? "login" : "signup"}: ${error.message}`
+      );
+      console.error("Error:", error);
     }
   };
 
@@ -67,62 +69,71 @@ const Login = () => {
   };
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
-      <div className='flex items-center justify-evenly w-[80%]'>
-        <div>
-          <FaXTwitter size="350px" style={{ fontWeight: 'lighter' }} />
+    <div className="relative w-screen h-screen flex items-center justify-center">
+      <div className="absolute top-20 left-10 lg:hidden">
+        <FaXTwitter size="70px" style={{ fontWeight: "lighter" }} />
+      </div>
+      <div className="flex items-center justify-evenly lg:w-[80%]">
+        <div className="hidden lg:block">
+          <FaXTwitter size="350px" style={{ fontWeight: "lighter" }} />
         </div>
+
         <div>
-          <div className='my-5'>
-            <h1 className='font-bold text-6xl'>Happening now</h1>
+          <div className="my-5">
+            <h1 className="font-bold text-3xl lg:text-6xl">Happening now</h1>
           </div>
-          <label className='mt-4 mb-4 text-2xl font-bold'>
+          <label className="mt-4 mb-4 text-2xl font-bold">
             {isLogin ? "Login" : "Signup"}
           </label>
-          <form onSubmit={handleSubmit} className='flex flex-col w-[55%]'>
+          <form onSubmit={handleSubmit} className="flex flex-col w-[55%]">
             {!isLogin && (
               <>
                 <input
                   type="text"
-                  placeholder='Name'
+                  placeholder="Name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className='outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full'
+                  className="outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full "
                 />
                 <input
                   type="text"
-                  placeholder='Username'
+                  placeholder="Username"
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  className='outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full'
+                  className="outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full"
                 />
               </>
             )}
             <input
               type="email"
-              placeholder='Email'
+              placeholder="Email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className='outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full'
+              className="outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full"
             />
             <input
               type="password"
-              placeholder='Password'
+              placeholder="Password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className='outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full'
-              autoComplete=''
+              className="outline-blue-500 border border-gray-800 px-3 py-2 my-1 font-semibold rounded-full"
+              autoComplete=""
             />
-            <button className='bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white'>
+            <button className="bg-[#1D9BF0] border-none py-2 my-4 rounded-full text-lg text-white">
               {isLogin ? "Login" : "Create Account"}
             </button>
             <h1>
-              {isLogin ? "Do not have an account? " : "Already have an account? "}
-              <span onClick={loginSignupHandler} className='font-bold text-blue-400 cursor-pointer'>
+              {isLogin
+                ? "Do not have an account? "
+                : "Already have an account? "}
+              <span
+                onClick={loginSignupHandler}
+                className="font-bold text-blue-400 cursor-pointer"
+              >
                 {isLogin ? "Signup" : "Login"}
               </span>
             </h1>

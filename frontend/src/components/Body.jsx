@@ -5,6 +5,7 @@ import Login from './Login'
 import Feed from './Feed'
 import Profile from './Profile'
 import MobileRightsideBar from './MobileRightsidebar'
+import ChatPage from '../pages/ChatPage'
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -31,6 +32,10 @@ const Body = () => {
     {
       path : "/login",
       element : <Login/>
+    },
+    {
+      path : "/messages",
+      element : <ChatPage/>
     }
   ])
   return (
