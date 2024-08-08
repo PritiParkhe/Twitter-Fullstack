@@ -51,11 +51,11 @@ const AllApiUrls = {
   },
   getAllStories: {
     Url: `${backendDomain}/api/allstories`,
-    method: "GET",
+    method: "get",
   },
   createStory: {
     Url: `${backendDomain}/api/createstory`,
-    method: "POST",
+    method: "post",
   },
   myStory: {
     Url: `${backendDomain}/api/mystory`,
@@ -80,6 +80,19 @@ const AllApiUrls = {
   commentList: {
     Url: (tweetId) => `${backendDomain}/api/commentList/${tweetId}`,
     method: "get",
+  },
+  getConversation: {
+    Url: `${backendDomain}/api/messages/conversation`,
+    method: "get",
+  },
+  getMessage: {
+    Url: (otherUserId) =>
+      `${backendDomain}/api/messages/getmessage/${otherUserId}`,
+    method: "get",
+  },
+  sendMessage: {
+    Url: `${backendDomain}/api/messages`,
+    method: "post",
   },
 };
 

@@ -2,7 +2,6 @@ import { Conversation } from "../../models/conversation.js";
 
 const getConversationController = async (req, res) => {
   const userId = req.userId;
-  console.log(userId);
 
   try {
     const conversations = await Conversation.find({
