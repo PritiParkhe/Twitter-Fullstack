@@ -94,6 +94,10 @@ const AllApiUrls = {
     Url: `${backendDomain}/api/messages`,
     method: "post",
   },
+  getUserProfile: {
+    Url: (query) => `${backendDomain}/api/getprofile/${query}`,
+    method: "get",
+  },
 };
 
 export default AllApiUrls;

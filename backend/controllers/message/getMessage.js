@@ -10,7 +10,7 @@ const getMessageController = async (req, res) => {
     });
 
     if (!conversation) {
-      return res.status(404).json({
+      return res.status(200).json({
         messages: "Message not found",
       });
     }

@@ -17,6 +17,7 @@ import { UpdateUserController } from "../controllers/User/updateUser.js";
 import { freezeAccount } from "../controllers/User/freezeAccount.js";
 import { commentController } from "../controllers/Tweet/commentsController.js";
 import { getCommentListController } from "../controllers/Tweet/getCommentList.js";
+import { getOtherUserProfile } from "../controllers/User/getOtherUserProfile.js";
 
 const router = express.Router();
 
@@ -36,6 +37,7 @@ router.get("/all-tweets/:id", isAuthenticated, getAllTweetControllers);
 router.get("/following-tweets/:id", isAuthenticated, getFollowingTweets);
 router.put("/update/:id", isAuthenticated, UpdateUserController);
 router.put("/freeze", isAuthenticated, freezeAccount);
+router.get("/getprofile/:query", getOtherUserProfile);
 
 // tweet routes
 router.post("/create-tweet", isAuthenticated, createTweetController);

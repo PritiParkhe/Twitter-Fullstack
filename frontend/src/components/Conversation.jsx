@@ -1,25 +1,53 @@
 import React from "react";
 import Avatar from "react-avatar";
+import { BsCheck2All, BsFillImageFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import verified from "../assets/verified.png";
 
-const Conversation = ({ conversation, onClick }) => {
-  const user = conversation.participants[0]; // Assuming participants array contains user details
+
+const Conversation = ({ conversation, onClick, isSelected }) => {
+
+  const user = conversation.participants?.[0];
+  const currentUser = useSelector((state) => state.user.user);
+  const lastMessage = conversation.lastMessage;
+  if (
+    !conversation ||
+    !conversation.participants ||
+    conversation.participants.length === 0
+  ) {
+    console.warn("Invalid conversation data:", conversation); // Log invalid data
+    return null; // or display a message indicating invalid data
+  }
+
+  
 
   return (
     <div
-      className="flex gap-4 items-center p-1 cursor-pointer rounded-md"
+      className={`flex items-center gap-4 p-3 cursor-pointer rounded-lg transition ${
+        isSelected ? "bg-gray-300" : "hover:bg-gray-100"
+      }`}
       onClick={onClick}
     >
       <div className="relative">
-        <Avatar size="50px" src={user.profilePic} round/>
+        <Avatar size="50px" src={user.profilePic} round />
         <span className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border border-white rounded-full"></span>
       </div>
-      <div className="flex flex-col text-sm gap-1">
-        <div className="font-semibold flex items-center">
+      <div className="flex flex-col text-sm">
+        <div className="flex items-center gap-1 font-semibold text-gray-800">
           {user.username}
-          <img src={verified} alt="verified" className="w-4 h-4 ml-1" />
+          <img src={verified}alt="Verified" className="w-4 h-4" />
         </div>
-        <p className="text-xs">{conversation.lastMessage.text}</p>
+        <p className=" flex gap-1 text-xs text-gray-600">
+          {currentUser._id === lastMessage?.sender && (
+            <BsCheck2All
+              size={16}
+              color={lastMessage?.seen ? "blue.400" : "gray"}
+            />
+          )}
+          {lastMessage?.text?.length > 18
+            ? `${lastMessage.text.substring(0, 18)}...`
+            : lastMessage?.text || <p></p>}
+        </p>
       </div>
     </div>
   );

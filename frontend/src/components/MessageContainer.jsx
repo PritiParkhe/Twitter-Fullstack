@@ -4,101 +4,141 @@ import { toast } from "react-toastify";
 import AllApiUrls from "../utils/constants";
 import verified from "../assets/verified.png";
 
-const MessageContainer = ({ conversation, messages, loading, setMessages }) => {
+const MessageContainer = ({
+  conversation,
+  messages,
+  loading,
+  setMessages,
+  setConversations,
+}) => {
   const [newMessage, setNewMessage] = useState("");
+  
+  // Safeguard for user object
+  const user = conversation?.participants?.[0];
+  
+  // Handle profile picture fallback
+  const profilePic = user?.profilePic || "https://via.placeholder.com/40"; // Fallback image
 
   const handleSendMessage = async () => {
+    if (!conversation || !user) {
+      console.error("Invalid conversation data for sending message:", conversation);
+      toast.error("Invalid conversation data.");
+      return;
+    }
+
     try {
-      const response = await fetch(AllApiUrls.sendMessage.Url, {
-        method: AllApiUrls.sendMessage.method,
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          recipientId: conversation.participants[0]._id,
-          message: newMessage,
-        }),
-      });
-      if (!response.ok) throw new Error('Failed to send message');
-      const data = await response.json();
-      setMessages([...messages, data.newMessage]);
-      setNewMessage("");
-      toast.success("Message sent");
+      if (conversation.mock) {
+        const response = await fetch(AllApiUrls.sendMessage.Url, {
+          method: AllApiUrls.sendMessage.method,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            recipientId: user._id,
+            firstMessage: newMessage,
+          }),
+        });
+
+        if (!response.ok) throw new Error("Failed to create conversation");
+
+        const data = await response.json();
+        setConversations((prev) =>
+          prev.map((conv) => (conv.mock ? data.newConversation : conv))
+        );
+
+        setMessages([data.newMessage]);
+        setNewMessage("");
+        toast.success("Conversation started and message sent");
+      } else {
+        const recipientId = user._id;
+        const response = await fetch(AllApiUrls.sendMessage.Url, {
+          method: AllApiUrls.sendMessage.method,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            recipientId,
+            message: newMessage,
+          }),
+        });
+
+        if (!response.ok) throw new Error("Failed to send message");
+
+        const data = await response.json();
+        setMessages((prevMessages) => [...prevMessages, data.newMessage]);
+        setNewMessage("");
+        toast.success("Message sent");
+      }
     } catch (error) {
+      console.error("Error sending message:", error);
       toast.error(`Error sending message: ${error.message}`);
     }
   };
 
   return (
-    <div className="w-full lg:w-[70%] bg-gray-100 border rounded-md p-1">
-      {conversation && (
-        <div className="w-full h-12 flex items-center gap-2">
-          <Avatar
-            src={conversation.participants[0].profilePic}
-            size="40px"
-            round
-          />
-          <p className="flex items-center">
-            {conversation.participants[0].username}
-            {conversation.participants[0].verified && (
+    <div className="bg-white border border-gray-200 rounded-lg shadow-md h-full flex flex-col">
+      {conversation && user && (
+        <div className="flex items-center gap-2 p-4 border-b border-gray-200">
+          <Avatar src={profilePic} size="40px" round />
+          <p className="flex items-center text-gray-800">
+            {user.username}
+            
               <img src={verified} alt="Verified" className="h-4 w-4 ml-1" />
-            )}
+            
           </p>
         </div>
       )}
-      <div className="flex flex-col gap-2 my-4 h-[400px] overflow-y-scroll">
+      <div className="flex-1 overflow-y-auto p-4">
         {loading ? (
-          <p>Loading messages...</p>
-        ) : (
+          <p className="text-center text-gray-600">Loading messages...</p>
+        ) : Array.isArray(messages) && messages.length > 0 ? (
           messages.map((message, i) => (
             <div
               key={i}
-              className={`flex gap-2 items-center p-1 border-none rounded-md ${
-                message.sender === conversation.participants[0]._id ? "" : "ml-auto"
+              className={`flex gap-2 items-center p-2 ${
+                message.sender === user?._id ? "justify-start" : "justify-end"
               }`}
             >
-              {message.sender === conversation.participants[0]._id && (
-                <Avatar
-                  src={conversation.participants[0].profilePic}
-                  size="30px"
-                  round
-                />
+              {message.sender === user?._id && (
+                <Avatar src={profilePic} size="30px" round />
               )}
               <p
-                className={`max-w-[230px] lg:max-w-[350px] bg-blue-400 p-1 border rounded-md text-sm lg:text-md ${
-                  message.sender !== conversation.participants[0]._id ? "ml-auto" : ""
+                className={`max-w-[230px] lg:max-w-[350px] p-2 rounded-md ${
+                  message.sender === user?._id
+                    ? "bg-gray-200 text-gray-800"
+                    : "bg-blue-500 text-white"
                 }`}
               >
                 {message.text}
               </p>
-              {message.sender !== conversation.participants[0]._id && (
-                <Avatar
-                  src={conversation.participants[0].profilePic}
-                  size="30px"
-                  round
-                />
-              )}
             </div>
           ))
+        ) : (
+          <div className="text-center text-gray-600 h-[500px]">
+            No messages yet
+          </div>
         )}
       </div>
-      {conversation && (
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            className="py-1 px-2 border border-gray-500 hover:border-blue-500 rounded-full flex-grow"
-          />
-          <button
-            onClick={handleSendMessage}
-            className="w-[40px] p-2 border border-gray-500 hover:border-blue-500 rounded-2xl"
-          >
-            Send
-          </button>
-        </div>
-      )}
+      <div className="p-4 border-t border-gray-200">
+        <input
+          type="text"
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Type your message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSendMessage();
+          }}
+        />
+        <button
+          className="mt-2 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition"
+          onClick={handleSendMessage}
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 };
