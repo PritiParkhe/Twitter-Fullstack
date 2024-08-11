@@ -5,13 +5,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./routes/userRoute.js";
 import messageRouter from "./routes/messageRoutes.js";
-
+import { app, server } from "./socket/socket.js";
 import storyRoutes from "./routes/storyRoutes.js";
 dotenv.config({
   path: ".env",
 });
 
-const app = express();
+// const app = express();
 const PORT = process.env.PORT || 8000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -33,7 +33,7 @@ app.use("/api/messages", messageRouter);
 
 connectDB()
   .then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server listening at ${PORT}`);
     });
   })

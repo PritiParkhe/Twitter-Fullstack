@@ -1,5 +1,6 @@
 import { Conversation } from "../../models/conversation.js";
 import { Message } from "../../models/message.js";
+import { getRecipientSocketId, io } from "../../socket/socket.js";
 
 const sendMessageController = async (req, res) => {
   try {
@@ -37,13 +38,23 @@ const sendMessageController = async (req, res) => {
       }),
     ]);
 
+    const recipientSocketId = getRecipientSocketId(recipientId);
+    console.log(recipientSocketId, "recipientSocketId");
+
+    if (recipientSocketId) {
+      io.to(recipientSocketId).emit("new message", message);
+    } else {
+      console.log("Recipient is offline, message saved for later delivery.");
+    }
+
     res.status(201).json({
       newMessage,
-      message: "Message send successfully",
+      message: "Message sent successfully",
       success: true,
       error: false,
     });
   } catch (error) {
+    console.log("Internal error:", error);
     return res.status(500).json({
       message: error.message || error,
       error: true,
@@ -51,4 +62,5 @@ const sendMessageController = async (req, res) => {
     });
   }
 };
+
 export { sendMessageController };
