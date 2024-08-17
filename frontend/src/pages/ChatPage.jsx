@@ -8,6 +8,7 @@ import AllApiUrls from "../utils/constants";
 import { useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
 
+
 const ChatPage = () => {
   const [loading, setLoading] = useState(true);
   const [conversations, setConversations] = useState([]);
@@ -51,7 +52,6 @@ const ChatPage = () => {
         if (!response.ok) throw new Error("Failed to fetch conversations");
         const data = await response.json();
         setConversations(data.conversations || []);
-
         toast.success("Fetched conversations");
       } catch (error) {
         toast.error(`Error fetching conversations: ${error.message}`);

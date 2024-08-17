@@ -7,6 +7,7 @@ import router from "./routes/userRoute.js";
 import messageRouter from "./routes/messageRoutes.js";
 import { app, server } from "./socket/socket.js";
 import storyRoutes from "./routes/storyRoutes.js";
+import bodyParser from "body-parser";
 dotenv.config({
   path: ".env",
 });
@@ -21,7 +22,8 @@ app.use(
     credentials: true,
   })
 );
-
+app.use(bodyParser.json({ limit: "10mb" })); // Adjust the limit as needed
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true })); // Adjust the limit as needed
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());

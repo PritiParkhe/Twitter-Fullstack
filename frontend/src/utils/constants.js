@@ -98,6 +98,10 @@ const AllApiUrls = {
     Url: (query) => `${backendDomain}/api/getprofile/${query}`,
     method: "get",
   },
+  freezeAccount:{
+    Url: `${backendDomain}/api/freeze`,
+    method: "put",
+  }
 };
 
 export default AllApiUrls;

@@ -6,6 +6,7 @@ import Feed from './Feed'
 import Profile from './Profile'
 import MobileRightsideBar from './MobileRightsidebar'
 import ChatPage from '../pages/ChatPage'
+import Settings from '../pages/Settings'
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -28,6 +29,10 @@ const Body = () => {
     {
       path : "/search",
       element : <MobileRightsideBar/>
+    },
+    {
+      path : "/settings",
+      element : <Settings/>
     },
     {
       path : "/login",
