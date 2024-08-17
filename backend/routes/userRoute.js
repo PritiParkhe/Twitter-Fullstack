@@ -35,7 +35,7 @@ router.post("/follow/:id", isAuthenticated, followController);
 router.post("/unfollow/:id", isAuthenticated, unfollowController);
 router.get("/all-tweets/:id", isAuthenticated, getAllTweetControllers);
 router.get("/following-tweets/:id", isAuthenticated, getFollowingTweets);
-router.put("/update/:id", isAuthenticated, UpdateUserController);
+router.put("/update", isAuthenticated, UpdateUserController);
 router.put("/freeze", isAuthenticated, freezeAccount);
 router.get("/getprofile/:query", getOtherUserProfile);
 

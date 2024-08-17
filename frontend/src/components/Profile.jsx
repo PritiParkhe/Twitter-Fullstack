@@ -1,16 +1,16 @@
 import React from "react";
-import bgImg from "../assets/bgImg.webp";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import Avatar from "react-avatar";
-import avatar from "../assets/aboutImage.jpg";
-import useGetUserProfile from "../hooks/useGetUserProfile";
 import { useDispatch, useSelector } from "react-redux";
+import useGetUserProfile from "../hooks/useGetUserProfile";
 import AllApiUrls from "../utils/constants";
 import { toast } from "react-toastify";
 import { followingUpdate } from "../store/userSlice";
-import { getRefresh } from '../store/tweetSlice';
+import avatar from "../assets/aboutImage.jpg";
+import bgImg from "../assets/bgImg.webp";
 
+import { getRefresh } from "../store/tweetSlice";
 
 const Profile = () => {
   const { id } = useParams();
@@ -44,16 +44,19 @@ const Profile = () => {
       const data = await response.json();
       if (response.ok) {
         dispatch(followingUpdate(id));
-        dispatch(getRefresh())
+        dispatch(getRefresh());
         toast.success(data.message);
       } else {
         toast.error(data.message || "Failed to update follow status");
       }
     } catch (error) {
       toast.error("Failed to follow user");
-      console.log("Failed to follow user", error);
+      console.error("Failed to follow user", error);
     }
   };
+
+  const bgImgUrl = profile.bgImg || bgImg; // Fallback to local bgImg if not available
+  const profilePicUrl = profile.profilePic || avatar; // Fallback to local avatar if not available
 
   return (
     <div className="w-[100%] border border-l border-r border-gray-200 lg:w-[50%]">
@@ -74,19 +77,19 @@ const Profile = () => {
         </div>
         <div className="h-52">
           <img
-            src={bgImg}
-            alt="Profile Img"
+            src={bgImgUrl}
+            alt="Profile Background"
             className="h-full w-full object-fill"
           />
         </div>
         <div className="absolute top-52 ml-2 border-4 border-white rounded-full">
-          <Avatar src={avatar} size="120" round={true} />
+          <Avatar src={profilePicUrl} size="120" round={true} />
         </div>
         <div className="text-right m-4">
           {profile?._id === user?._id ? (
-            <button className="px-4 py-1 rounded-full hover:bg-gray-200 border border-gray-400">
+            <Link to={"/update"} className="px-4 py-1 rounded-full hover:bg-gray-200 border border-gray-400">
               Edit Profile
-            </button>
+            </Link>
           ) : (
             <button
               onClick={followAndUnfollowHandler}
@@ -111,3 +114,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

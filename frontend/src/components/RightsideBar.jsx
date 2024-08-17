@@ -24,7 +24,7 @@ const RightsideBar = ({ otherUsers }) => {
             <div key={user?._id} className="flex items-center justify-between my-3">
               <div className="flex">
                 <div>
-                  <Avatar src={avatar} size="40" round={true} />
+                  <Avatar src={user?.profilePic|| avatar} size="40" round={true} />
                 </div>
                 <div className="ml-2">
                   <h1 className="font-bold">{user?.name}</h1>

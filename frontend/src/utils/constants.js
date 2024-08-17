@@ -101,7 +101,13 @@ const AllApiUrls = {
   freezeAccount:{
     Url: `${backendDomain}/api/freeze`,
     method: "put",
+  },
+  updateProfile:{
+    Url: `${backendDomain}/api/update`,
+    method: "put",
   }
+    
+  
 };
 
 export default AllApiUrls;
