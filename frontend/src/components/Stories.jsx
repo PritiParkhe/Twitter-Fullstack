@@ -73,7 +73,7 @@ const StoryList = ({ openStoryModal, closeStoryModal }) => {
         {Object.values(groupedStories).map((group) => (
           <StoryBubble
             key={group.user_id._id}
-            imgSrc={user.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg"} // Display the first story's media as the 
+            imgSrc={group.user_id.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg"} // Display the first story's media as the 
             username={group.user_id.username}
             onClick={() => openStory(group)}
             isCurrentUser={false}
