@@ -5,7 +5,7 @@ import { userLogoutController } from "../controllers/User/userLogout.js";
 import { createTweetController } from "../controllers/Tweet/tweetController.js";
 import isAuthenticated from "../middleware/auth.js";
 import { deleteTweetController } from "../controllers/Tweet/deleteTweetController.js";
-import { likeOrDislikeTweetController } from "../controllers/Tweet/likeorDislikeTweetController.js";
+import { likeOrDislikeTweetController } from "../controllers/Tweet/likeOrDislikeTweetController.js";
 import { bookmarkController } from "../controllers/Tweet/tweetBokmarkController.js";
 import { getMyProfileController } from "../controllers/User/getUserProfile.js";
 import { getOtherUserProfileController } from "../controllers/User/getOtherUserProfileController.js";
