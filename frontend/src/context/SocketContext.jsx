@@ -14,7 +14,7 @@ export const SocketContextProvider = ({ children }) => {
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    const socket = io("http://localhost:8000", {
+    const socket = io(process.env.REACT_APP_BACKEND_URL, {
       query: {
         userId: user?._id,
       },
