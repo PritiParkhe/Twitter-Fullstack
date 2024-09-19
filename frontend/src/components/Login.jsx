@@ -39,7 +39,6 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
         credentials: "include",
-        withCredentials: true,
       });
 
       const data = await response.json();
