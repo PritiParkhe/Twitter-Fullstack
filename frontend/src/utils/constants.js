@@ -1,5 +1,5 @@
 const backendDomain = process.env.REACT_APP_BACKEND_URL;
-console.log(process.env.REACT_APP_BACKEND_URL);
+console.log("Backend Domain:", backendDomain);
 
 const AllApiUrls = {
   signUp: {
