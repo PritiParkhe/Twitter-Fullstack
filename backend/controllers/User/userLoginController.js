@@ -35,11 +35,12 @@ const userLoginController = async (req, res) => {
       const token = await jwt.sign(tokenData, secretKey, {
         expiresIn: 60 * 60 * 10,
       });
-      const tokenOption = {
+      const tokenOptions = {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "None",
       };
-      return res.cookie("token", token, tokenOption).json({
+      return res.cookie("token", token, tokenOptions).json({
         message: "Login Successfully",
         user,
         data: token,
