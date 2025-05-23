@@ -2,6 +2,11 @@
 
 A full-stack Twitter clone built with the **MERN Stack** (MongoDB, Express.js, React.js, Node.js), providing core features such as user authentication, tweet creation, real-time chat, and media handling. This project demonstrates how to build a social media platform with modern web technologies.
 
+## 🚀 Demo
+
+Check out the live demo: [View Demo](https://twitter-fullstack-nn97.vercel.app)
+
+
 # Features
 
 - **User Authentication**: Secure sign-up, login, and JWT-based session management.
@@ -97,15 +102,27 @@ This will start the frontend on **http://localhost:3000**.
 
 ### Home Page
 
-![Home Page](https://example.com/homepage-screenshot.png)
+![Home Page](./frontend/src/assets/homepage.png)
 
 ### User Profile
 
-![User Profile](https://example.com/user-profile-screenshot.png)
+![User Profile](./frontend/src/assets/profilepage.png)
+
+### User Profile
+
+![comments](./frontend/src/assets/feed&comments.png)
+
+### Story Feature
+
+![story Feature](./frontend/src/assets/story.png)
 
 ### Chat Feature
 
-![Chat Feature](https://example.com/chat-feature-screenshot.png)
+![Chat Feature](./frontend/src/assets/chatpage.png)
+
+### Mobile view
+
+![mobile view](./frontend/src/assets/mobileview.png)
 
 ## Roadmap
 
